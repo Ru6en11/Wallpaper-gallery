@@ -19,11 +19,13 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    //Подключаем toolbar_menu к toolbar
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
         return true
     }
 
+    //Обработчик нажатий на элементы toolbar
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             android.R.id.home -> binding.drawerLayout.openDrawer(GravityCompat.START)
@@ -32,9 +34,11 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    //Инициализация toolbar
     private fun initToolbar() = with(binding) {
+        //Подключаем кастомный toolbar
         setSupportActionBar(toolbar)
-
+        //Смена шрифта у tittle
         toolbar.setTitleTextAppearance(this@MainActivity, R.style.toolbarStyle)
     }
 }

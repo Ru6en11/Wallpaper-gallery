@@ -3,6 +3,7 @@
 
     <style name="toolbarStyle">
         <item name="android:fontFamily">@font/tropical_blooming</item>
+        <item name="android:textSize">24sp</item>
     </style>
 
 </resources>

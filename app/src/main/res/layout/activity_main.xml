@@ -20,6 +20,7 @@
             android:background="@color/navigationLightTheme"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
+            app:title="RubbenGallery"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -34,7 +35,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/navigationLightTheme"/>
+        android:background="@color/navigationLightTheme"
+        app:menu="@menu/sidebar_menu"
+        app:headerLayout="@layout/header_sidebar"/>
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

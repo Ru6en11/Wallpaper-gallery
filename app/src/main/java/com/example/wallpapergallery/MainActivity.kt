@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
 
         initToolbar()
+        initSidebarItemSelectedListener()
 
     }
 
@@ -49,5 +50,28 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         //Смена шрифта у tittle
         toolbar.setTitleTextAppearance(this@MainActivity, R.style.toolbarStyle)
+    }
+
+    private fun initSidebarItemSelectedListener() = with(binding) {
+        sidebar.setNavigationItemSelectedListener {
+            when(it.itemId) {
+                R.id.home -> drawerLayout.closeDrawer((GravityCompat.START))
+                R.id.favourite -> {
+                    //todo
+                }
+                R.id.history -> {
+                    //todo
+                }
+                R.id.settings -> {
+                    //todo
+                }
+                R.id.about_sidebar -> {
+                    //todo
+                }
+            }
+            drawerLayout.closeDrawer(GravityCompat.START)
+
+            true
+        }
     }
 }

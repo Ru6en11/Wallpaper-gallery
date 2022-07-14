@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.core.view.GravityCompat
 import com.example.wallpapergallery.databinding.ActivityMainBinding
 
@@ -29,6 +30,14 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             android.R.id.home -> binding.drawerLayout.openDrawer(GravityCompat.START)
+            R.id.search -> {
+                //todo
+                Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show()
+            }
+            R.id.about_toolbar -> {
+                //todo
+                Toast.makeText(this, "About", Toast.LENGTH_SHORT).show()
+            }
         }
 
         return true

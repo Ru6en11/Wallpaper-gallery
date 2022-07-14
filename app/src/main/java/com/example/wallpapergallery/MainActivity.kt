@@ -14,7 +14,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
 
-        setSupportActionBar(binding.toolbar)
+        initToolbar()
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -23,5 +24,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         return true
+    }
+
+    private fun initToolbar() = with(binding) {
+        setSupportActionBar(toolbar)
+        toolbar.setTitleTextAppearance(this@MainActivity, R.style.toolbarStyle)
     }
 }

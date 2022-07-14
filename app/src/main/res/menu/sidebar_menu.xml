@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item android:title="" >
+        <menu>
+            <item android:id="@+id/home" android:title="@string/home" android:icon="@drawable/ic_home"/>
+            <item android:id="@+id/favourite" android:title="@string/favourite" android:icon="@drawable/ic_favourite_border" />
+            <item android:id="@+id/history" android:title="@string/history" android:icon="@drawable/ic_history" />
+        </menu>
+    </item>
+
+    <item android:title="" >
+        <menu>
+            <item android:id="@+id/settings" android:title="@string/settings" android:icon="@drawable/ic_settings"/>
+            <item android:id="@+id/about_sidebar" android:title="@string/about" android:icon="@drawable/ic_settings"/>
+        </menu>
+    </item>
+
+</menu>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="search"
+        android:id="@+id/search"
+        android:icon="@drawable/ic_search"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="1"
+        />
+
+    <item
+        android:title="about"
+        android:id="@+id/about"
+        app:showAsAction="withText"
+        android:orderInCategory="2"
+        />
+
+</menu>

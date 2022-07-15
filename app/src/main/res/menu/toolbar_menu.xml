@@ -6,15 +6,8 @@
         android:title="@string/search"
         android:id="@+id/search"
         android:icon="@drawable/ic_search"
-        app:showAsAction="ifRoom"
-        android:orderInCategory="1"
-        />
-
-    <item
-        android:title="@string/about"
-        android:id="@+id/about_toolbar"
-        app:showAsAction="withText"
-        android:orderInCategory="2"
-        />
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView"
+        android:orderInCategory="1"/>
 
 </menu>

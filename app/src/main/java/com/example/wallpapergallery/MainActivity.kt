@@ -1,10 +1,13 @@
 package com.example.wallpapergallery
 
+import android.app.SearchManager
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.GravityCompat
 import com.example.wallpapergallery.databinding.ActivityMainBinding
 
@@ -24,6 +27,27 @@ class MainActivity : AppCompatActivity() {
     //Подключаем toolbar_menu к toolbar
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
+
+        val manager =getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchItem = menu?.findItem(R.id.search)
+        val searchView = searchItem?.actionView as SearchView
+
+        searchView.setSearchableInfo(manager.getSearchableInfo(componentName))
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                //todo
+                Toast.makeText(this@MainActivity, query, Toast.LENGTH_SHORT).show()
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                //todo
+                return false
+            }
+
+        })
+
         return true
     }
 
@@ -35,10 +59,10 @@ class MainActivity : AppCompatActivity() {
                 //todo
                 Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show()
             }
-            R.id.about_toolbar -> {
-                //todo
-                Toast.makeText(this, "About", Toast.LENGTH_SHORT).show()
-            }
+//            R.id.about_toolbar -> {
+//                //todo
+//                Toast.makeText(this, "About", Toast.LENGTH_SHORT).show()
+//            }
         }
 
         return true

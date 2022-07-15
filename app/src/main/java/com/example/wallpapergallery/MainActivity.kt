@@ -28,12 +28,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
 
+        //Подключаем searchView
         val manager =getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchItem = menu?.findItem(R.id.search)
         val searchView = searchItem?.actionView as SearchView
 
         searchView.setSearchableInfo(manager.getSearchableInfo(componentName))
 
+        //Слушатель для searchView
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 //todo
@@ -59,10 +61,6 @@ class MainActivity : AppCompatActivity() {
                 //todo
                 Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show()
             }
-//            R.id.about_toolbar -> {
-//                //todo
-//                Toast.makeText(this, "About", Toast.LENGTH_SHORT).show()
-//            }
         }
 
         return true

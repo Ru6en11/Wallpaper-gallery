@@ -35,6 +35,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:background="@color/navigationLightTheme"
+            app:tabIndicatorColor="@color/black"
+            app:tabTextColor="@color/black"
             app:tabMode="auto">
 
         <com.google.android.material.tabs.TabItem

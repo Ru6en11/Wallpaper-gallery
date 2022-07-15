@@ -10,12 +10,28 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.core.view.GravityCompat
 import com.example.wallpapergallery.R
+import com.example.wallpapergallery.adapters.ViewPagerAdapter
 import com.example.wallpapergallery.databinding.FragmentMainBinding
+import com.google.android.material.tabs.TabLayoutMediator
 
 
 class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
+
+    private val fragmentsList = listOf(
+        CategoryFragment.newInstance(),
+        RandomFragment.newInstance(),
+        AuthorFragment.newInstance(),
+        PopularFragment.newInstance()
+    )
+
+    private val fragmentListTittle = listOf(
+        "CATEGORY",
+        "RANDOM",
+        "AUTHOR'S",
+        "POPULAR"
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,7 +47,27 @@ class MainFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //fixme
         setHasOptionsMenu(true)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        //Задаем адаптер для ViewPager2
+
+        val adapter = ViewPagerAdapter(activity as AppCompatActivity, fragmentsList)
+        binding.viewPager2.adapter = adapter
+
+        //Устанавливаем default tab
+        binding.viewPager2.currentItem = 1
+
+        //Синхронизация работы TabLayout и ViewPager2
+        TabLayoutMediator(binding.tabLayout, binding.viewPager2) { tab, pos ->
+            tab.text =fragmentListTittle[pos]
+        }.attach()
+
+
     }
 
     //Подключаем toolbar_menu к toolbar
@@ -60,6 +96,7 @@ class MainFragment : Fragment() {
 
         })
 
+        //fixme
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -81,7 +118,7 @@ class MainFragment : Fragment() {
         toolbar.setTitleTextAppearance(activity as AppCompatActivity, R.style.toolbarStyle)
     }
 
-
+    //слушатель нажатий для sidebar
     private fun initSidebarItemSelectedListener() = with(binding) {
         sidebar.setNavigationItemSelectedListener {
             when(it.itemId) {

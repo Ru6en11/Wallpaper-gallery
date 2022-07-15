@@ -9,5 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="statusBarLight">#C7C7C7C7</color>
     <color name="navigationLightTheme">#FAFAFAFA</color>
+    <color name="darkThemeTextColor">#454545</color>
 
 </resources>

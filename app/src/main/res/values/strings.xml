@@ -11,4 +11,7 @@
     <string name="logo">Logo</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="category">CATEGORY</string>
+    <string name="random">RANDOM</string>
+    <string name="author_s">AUTHOR\'S</string>
 </resources>

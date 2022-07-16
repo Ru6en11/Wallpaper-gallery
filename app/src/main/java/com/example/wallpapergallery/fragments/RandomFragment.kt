@@ -38,7 +38,7 @@ class RandomFragment : Fragment() {
         randomRecyclerView.adapter = adapter
 
         for (i in 1..10) {
-            val src = "https://source.unsplash.com/random/1080x1920 ${kotlin.random.Random.nextInt(0, 1000)}"
+            val src = "https://source.unsplash.com/random/1080x1920 ${kotlin.random.Random.nextInt(-10000, 1000)}"
             val wallpaper = Wallpaper(src)
             adapter.addWallpaper(wallpaper)
         }

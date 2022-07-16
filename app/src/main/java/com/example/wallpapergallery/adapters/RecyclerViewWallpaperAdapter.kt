@@ -43,5 +43,6 @@ class RecyclerViewWallpaperAdapter : RecyclerView.Adapter<RecyclerViewWallpaperA
     fun addWallpaper(wallpaper: Wallpaper) {
         wallpapersList.add(wallpaper)
         notifyDataSetChanged()
+        println(wallpaper.wallpaperResource)
     }
 }

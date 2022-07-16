@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.wallpapergallery.R
 import com.example.wallpapergallery.databinding.WallpaperItemBinding
 import com.example.wallpapergallery.models.Wallpaper
@@ -16,6 +18,12 @@ class RecyclerViewWallpaperAdapter : RecyclerView.Adapter<RecyclerViewWallpaperA
         private val binding = WallpaperItemBinding.bind(item)
         fun bind(wallpaper: Wallpaper) = with(binding) {
 
+            Glide.with(wallpaperItem)
+                .load(wallpaper.wallpaperResource)
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                .centerCrop()
+                .into(wallpaperItem)
         }
     }
 

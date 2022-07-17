@@ -4,10 +4,8 @@ import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.activityViewModels
@@ -18,7 +16,6 @@ import com.example.wallpapergallery.adapters.ViewPagerAdapter
 import com.example.wallpapergallery.databinding.FragmentMainBinding
 import com.example.wallpapergallery.listeners.RecyclerViewOnScrollListener
 import com.example.wallpapergallery.viewmodels.MainFragmentViewModel
-import com.example.wallpapergallery.viewmodels.RandomFragmentViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.fragment_main.*
 
@@ -50,9 +47,6 @@ class MainFragment : Fragment() {
     ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
 
-        initToolbar()
-        initSidebarItemSelectedListener()
-
         return binding.root
     }
 
@@ -61,10 +55,15 @@ class MainFragment : Fragment() {
 
         //fixme
         setHasOptionsMenu(true)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initToolbar()
+        initSidebarItemSelectedListener()
+
 
         if (model.searchState.value == null) {
             model.initSearchState(
@@ -75,7 +74,7 @@ class MainFragment : Fragment() {
         }
 
         model.searchState.observe(viewLifecycleOwner) {
-            searchHolder.visibility = if (it.visible) View.VISIBLE else View.GONE
+            renderSearchState(it)
         }
 
         //Задаем адаптер для ViewPager2
@@ -102,12 +101,6 @@ class MainFragment : Fragment() {
         }
 
 
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        println("SAVE ${model.searchState.value?.visible}")
-        outState.putParcelable(KEY_SEARCH_STATE, model.searchState.value)
     }
 
     private fun renderSearchState(searchState: MainFragmentViewModel.SearchState) = with(binding){
@@ -163,7 +156,7 @@ class MainFragment : Fragment() {
                 model.searchWallpaper(query!!)
                 model.setSearchQueryParams(query)
                 searchRecyclerView.addOnScrollListener(RecyclerViewOnScrollListener(layoutManager,
-                    model::searchWallpaper, query))
+                    model::searchWallpaper, query, binding.mainToolbarLayout))
                 return false
             }
 
@@ -237,6 +230,5 @@ class MainFragment : Fragment() {
 
     companion object {
         @JvmStatic fun newInstance() = MainFragment()
-        @JvmStatic private val KEY_SEARCH_STATE = "KEY_SEARCH_STATE"
     }
 }

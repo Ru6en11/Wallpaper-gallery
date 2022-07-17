@@ -5,20 +5,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.wallpapergallery.MainActivity
 import com.example.wallpapergallery.adapters.RecyclerViewWallpaperAdapter
 import com.example.wallpapergallery.databinding.FragmentPopularBinding
 import com.example.wallpapergallery.listeners.RecyclerViewOnScrollListener
-import com.example.wallpapergallery.models.WallpaperModel
 import com.example.wallpapergallery.viewmodels.PopularFragmentViewModel
-import com.example.wallpapergallery.viewmodels.RandomFragmentViewModel
 
 
 class PopularFragment : Fragment() {
 
     private lateinit var binding: FragmentPopularBinding
+    private lateinit var ma: RelativeLayout
     private val adapter = RecyclerViewWallpaperAdapter()
     private val model: PopularFragmentViewModel by activityViewModels()
 
@@ -32,6 +33,9 @@ class PopularFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        ma = (activity as MainActivity).mainToolbarLayout
+
         initRecyclerView()
 
         if (model.state.value == null) {
@@ -58,7 +62,7 @@ class PopularFragment : Fragment() {
         popularRecyclerView.adapter = adapter
 
         //infinityScroll
-        popularRecyclerView.addOnScrollListener(RecyclerViewOnScrollListener(layoutManager, model::getPopularWallpaper))
+        popularRecyclerView.addOnScrollListener(RecyclerViewOnScrollListener(layoutManager, model::getPopularWallpaper, view = ma))
     }
 
     companion object {

@@ -7,6 +7,9 @@
         <item>Water</item>
         <item>Winter</item>
         <item>Abstract</item>
+        <item>City</item>
+        <item>Sea</item>
+        <item>Sky</item>
     </string-array>
 
 </resources>

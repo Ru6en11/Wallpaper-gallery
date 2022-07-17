@@ -1,26 +1,25 @@
 package com.example.wallpapergallery.fragments
 
-import android.media.Image
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.wallpapergallery.MainActivity
 import com.example.wallpapergallery.adapters.RecyclerViewWallpaperAdapter
 import com.example.wallpapergallery.databinding.FragmentRandomBinding
 import com.example.wallpapergallery.listeners.RecyclerViewOnScrollListener
-import com.example.wallpapergallery.models.WallpaperModel
 import com.example.wallpapergallery.viewmodels.RandomFragmentViewModel
 
 
 class RandomFragment : Fragment() {
 
     private lateinit var binding: FragmentRandomBinding
-
+    private lateinit var ma: RelativeLayout
     private val adapter = RecyclerViewWallpaperAdapter()
     private val model: RandomFragmentViewModel by activityViewModels()
 
@@ -34,6 +33,9 @@ class RandomFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        ma = (activity as MainActivity).mainToolbarLayout
+
         initRecyclerView()
 
         if (model.state.value == null) {
@@ -59,8 +61,9 @@ class RandomFragment : Fragment() {
         randomRecyclerView.layoutManager = layoutManager
         randomRecyclerView.adapter = adapter
 
+
         //infinityScroll
-        randomRecyclerView.addOnScrollListener(RecyclerViewOnScrollListener(layoutManager, model::getRandomWallpaper))
+        randomRecyclerView.addOnScrollListener(RecyclerViewOnScrollListener(layoutManager, model::getRandomWallpaper, view = ma))
     }
 
     companion object {

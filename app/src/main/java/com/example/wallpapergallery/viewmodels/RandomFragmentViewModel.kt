@@ -17,7 +17,10 @@ class RandomFragmentViewModel : ViewModel() {
     }
 
     fun getRandomWallpaper() {
-        stateLiveData.value?.randomWallpapers = WallpaperModel().getWallpaper()
+        val wallpapers = WallpaperModel().getWallpaper()
+        for (wall in wallpapers) {
+            stateLiveData.value?.randomWallpapers?.add(wall)
+        }
     }
 
     data class State(

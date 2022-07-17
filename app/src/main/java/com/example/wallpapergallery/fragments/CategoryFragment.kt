@@ -11,9 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wallpapergallery.R
 import com.example.wallpapergallery.adapters.RecyclerViewCategoryAdapter
 import com.example.wallpapergallery.databinding.FragmentCategoryBinding
-import com.example.wallpapergallery.models.Category
 import com.example.wallpapergallery.viewmodels.CategoryFragmentViewModel
-import com.example.wallpapergallery.viewmodels.RandomFragmentViewModel
 
 
 class CategoryFragment : Fragment() {

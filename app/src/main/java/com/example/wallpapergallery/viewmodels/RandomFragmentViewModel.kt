@@ -3,7 +3,7 @@ package com.example.wallpapergallery.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.wallpapergallery.models.Wallpaper
+import com.example.wallpapergallery.models.WallpaperModel
 
 class RandomFragmentViewModel : ViewModel() {
 
@@ -17,10 +17,10 @@ class RandomFragmentViewModel : ViewModel() {
     }
 
     fun getRandomWallpaper() {
-        stateLiveData.value?.randomWallpapers = Wallpaper().getWallpaper()
+        stateLiveData.value?.randomWallpapers = WallpaperModel().getWallpaper()
     }
 
     data class State(
-        var randomWallpapers: ArrayList<Wallpaper>
+        var randomWallpapers: ArrayList<WallpaperModel>
     )
 }

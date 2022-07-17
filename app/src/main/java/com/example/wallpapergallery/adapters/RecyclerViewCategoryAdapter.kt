@@ -8,26 +8,24 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.wallpapergallery.R
 import com.example.wallpapergallery.databinding.CategoryItemBinding
-import com.example.wallpapergallery.databinding.WallpaperItemBinding
-import com.example.wallpapergallery.models.Category
-import com.example.wallpapergallery.models.Wallpaper
+import com.example.wallpapergallery.models.CategoryModel
 
 class RecyclerViewCategoryAdapter : RecyclerView.Adapter<RecyclerViewCategoryAdapter.CategoryHolder>() {
 
-    private val categoryList = ArrayList<Category>()
+    private val categoryList = ArrayList<CategoryModel>()
 
     class CategoryHolder(item: View) : RecyclerView.ViewHolder(item) {
         private val binding = CategoryItemBinding.bind(item)
-        fun bind(category: Category) = with(binding) {
+        fun bind(categoryModel: CategoryModel) = with(binding) {
 
             Glide.with(categoryImageView)
-                .load(category.wallpaperResource)
+                .load(categoryModel.wallpaperResource)
                 .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .centerCrop()
                 .into(categoryImageView)
 
-            categoryTextView.text = category.title
+            categoryTextView.text = categoryModel.title
 
         }
     }
@@ -45,8 +43,8 @@ class RecyclerViewCategoryAdapter : RecyclerView.Adapter<RecyclerViewCategoryAda
         return categoryList.size
     }
 
-    fun addWallpaper(category: Category) {
-        categoryList.add(category)
+    fun addWallpaper(categoryModel: CategoryModel) {
+        categoryList.add(categoryModel)
         notifyDataSetChanged()
     }
 }

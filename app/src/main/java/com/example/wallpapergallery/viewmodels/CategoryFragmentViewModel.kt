@@ -3,8 +3,7 @@ package com.example.wallpapergallery.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.wallpapergallery.models.Category
-import com.example.wallpapergallery.models.Wallpaper
+import com.example.wallpapergallery.models.CategoryModel
 
 class CategoryFragmentViewModel : ViewModel() {
 
@@ -17,10 +16,10 @@ class CategoryFragmentViewModel : ViewModel() {
     }
 
     fun getCategory(categoryTitlesList: Array<String>) {
-        stateLiveData.value?.categoryItems = Category().getCategory(categoryTitlesList)
+        stateLiveData.value?.categoryItems = CategoryModel().getCategory(categoryTitlesList)
     }
 
     data class State(
-        var categoryItems: ArrayList<Category>
+        var categoryItems: ArrayList<CategoryModel>
     )
 }

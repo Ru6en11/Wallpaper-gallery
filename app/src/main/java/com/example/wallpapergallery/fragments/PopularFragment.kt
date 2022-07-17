@@ -8,9 +8,8 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.wallpapergallery.adapters.RecyclerViewWallpaperAdapter
-import com.example.wallpapergallery.databinding.FragmentAuthorBinding
 import com.example.wallpapergallery.databinding.FragmentPopularBinding
-import com.example.wallpapergallery.models.Wallpaper
+import com.example.wallpapergallery.models.WallpaperModel
 
 
 class PopularFragment : Fragment() {
@@ -38,7 +37,7 @@ class PopularFragment : Fragment() {
 
         for (i in 1..10) {
             val src = "https://source.unsplash.com/random/1080x1920?popular ${kotlin.random.Random.nextInt(-10000, 1000)}"
-            val wallpaper = Wallpaper(src)
+            val wallpaper = WallpaperModel(src)
             adapter.addWallpaper(wallpaper)
         }
     }

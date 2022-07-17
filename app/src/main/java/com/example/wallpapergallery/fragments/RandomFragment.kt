@@ -63,34 +63,6 @@ class RandomFragment : Fragment() {
         randomRecyclerView.addOnScrollListener(RecyclerViewOnScrollListener(layoutManager, model::getRandomWallpaper))
     }
 
-    private fun initScrollListener(manager: GridLayoutManager, f: () -> Unit) = with(binding){
-        var loading = true
-        var pastVisibleItems: Int
-        var visibleItemCount: Int
-        var totalItemCount: Int
-
-
-        randomRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (dy > 0) {
-                    visibleItemCount = manager.childCount
-                    totalItemCount = manager.itemCount
-                    pastVisibleItems = manager.findFirstVisibleItemPosition()
-
-                    if (loading) {
-                        if ((visibleItemCount + pastVisibleItems) >= totalItemCount - 1) {
-                            loading = false
-                            println("LAST ITEM")
-                            fun f() = model.getRandomWallpaper()
-                            loading = true
-                        }
-                    }
-                }
-            }
-        })
-    }
-
     companion object {
 
         @JvmStatic fun newInstance() = RandomFragment()

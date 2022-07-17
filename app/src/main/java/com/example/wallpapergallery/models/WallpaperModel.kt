@@ -9,10 +9,10 @@ data class WallpaperModel (var wallpaperResource: String = "") {
         val wallpaperList = ArrayList<WallpaperModel>()
 
         val keyword = "?$category"
-        val encodedKeyword =URLEncoder.encode(keyword, StandardCharsets.UTF_8.name())
+//        val encodedKeyword =URLEncoder.encode(keyword, StandardCharsets.UTF_8.name())
 
         for (i in 1..20) {
-            val src = "https://source.unsplash.com/random/1080x1920$encodedKeyword ${kotlin.random.Random.nextInt(-10000, 1000)}"
+            val src = "https://source.unsplash.com/random/1080x1920 ${kotlin.random.Random.nextInt(-10000, 1000)} $keyword"
             val wallpaper = WallpaperModel(src)
             wallpaperList.add(wallpaper)
         }

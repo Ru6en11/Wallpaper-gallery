@@ -9,15 +9,25 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.wallpapergallery.R
+import com.example.wallpapergallery.adapters.RecyclerViewSearchAdapter
 import com.example.wallpapergallery.adapters.ViewPagerAdapter
 import com.example.wallpapergallery.databinding.FragmentMainBinding
+import com.example.wallpapergallery.listeners.RecyclerViewOnScrollListener
+import com.example.wallpapergallery.viewmodels.MainFragmentViewModel
+import com.example.wallpapergallery.viewmodels.RandomFragmentViewModel
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.android.synthetic.main.fragment_main.*
 
 
 class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
+    private val model: MainFragmentViewModel by activityViewModels()
+    private val adapter = RecyclerViewSearchAdapter()
+    private lateinit var layoutManager: GridLayoutManager
 
     private val fragmentsList = listOf(
         CategoryFragment.newInstance(),
@@ -67,6 +77,17 @@ class MainFragment : Fragment() {
             tab.text =fragmentListTittle[pos]
         }.attach()
 
+        layoutManager = GridLayoutManager(activity as AppCompatActivity, 2)
+        initSearchRecyclerView()
+
+        if (model.state.value == null) {
+            model.initState()
+        }
+
+        model.state.observe(viewLifecycleOwner) {
+            renderState(it)
+        }
+
 
     }
 
@@ -83,28 +104,38 @@ class MainFragment : Fragment() {
 
         menu.findItem(R.id.search).setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
+
                 binding.searchHolder.visibility = View.VISIBLE
                 return true
             }
 
             override fun onMenuItemActionCollapse(p0: MenuItem?): Boolean {
+                model.clearState()
+                adapter.clearAdapter()
                 binding.searchHolder.visibility = View.GONE
                 return true
             }
+
 
         })
 
 
         //Слушатель для searchView
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
             override fun onQueryTextSubmit(query: String?): Boolean {
-                //todo
-                Toast.makeText(activity as AppCompatActivity, query, Toast.LENGTH_SHORT).show()
+
+                adapter.clearAdapter()
+                model.clearState()
+
+                model.searchWallpaper(query!!)
+                searchRecyclerView.addOnScrollListener(RecyclerViewOnScrollListener(layoutManager,
+                    model::searchWallpaper, query))
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                //todo
+
                 return false
             }
 
@@ -155,6 +186,22 @@ class MainFragment : Fragment() {
             true
         }
     }
+
+    private fun initSearchRecyclerView() = with(binding) {
+        searchRecyclerView.layoutManager = layoutManager
+        searchRecyclerView.adapter = adapter
+
+
+
+    }
+
+    private fun renderState(state: MainFragmentViewModel.State) {
+
+        for (i in state.currentStartNewWallpapers until state.wallpapers.size) {
+            adapter.addWallpaper(state.wallpapers[i])
+        }
+    }
+
 
     companion object {
         @JvmStatic

@@ -6,7 +6,8 @@ import kotlin.properties.Delegates
 
 class RecyclerViewOnScrollListener (
     private val manager: GridLayoutManager,
-    val fetchData: () -> Unit
+    val fetchData: (category: String) -> Unit,
+    val category: String = ""
 ) : RecyclerView.OnScrollListener() {
 
     private var loading = true
@@ -23,7 +24,7 @@ class RecyclerViewOnScrollListener (
             if (loading) {
                 if ((visibleItemCount + pastVisibleItems) >= totalItemCount - 2) {
                     loading = false
-                    fetchData()
+                    fetchData(category)
                     loading = true
                 }
             }

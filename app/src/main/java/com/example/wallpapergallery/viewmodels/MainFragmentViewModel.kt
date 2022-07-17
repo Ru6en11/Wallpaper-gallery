@@ -5,7 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.wallpapergallery.models.WallpaperModel
 
-class PopularFragmentViewModel : ViewModel() {
+class MainFragmentViewModel : ViewModel() {
+
 
     val state: LiveData<State> get() = stateLiveData
     private val stateLiveData = MutableLiveData<State>()
@@ -13,26 +14,28 @@ class PopularFragmentViewModel : ViewModel() {
     fun initState() {
         val state = State(ArrayList(), 0)
         stateLiveData.value = state
-        getPopularWallpaper()
     }
 
-    fun getPopularWallpaper(category: String = "") {
-        val wallpapers = WallpaperModel().getWallpaper()
+    fun searchWallpaper(searchWord: String) {
+        println("!!!!!!!!$searchWord!!!!!!")
+        val wallpapers = WallpaperModel().getWallpaper(searchWord)
         val oldState = stateLiveData.value
-        val oldCurrent = oldState?.popularWallpapers?.size
+        val oldCurrent = oldState?.wallpapers?.size
         for (wall in wallpapers) {
-            oldState?.popularWallpapers?.add(wall)
+            oldState?.wallpapers?.add(wall)
         }
         oldState?.currentStartNewWallpapers = oldCurrent!!
         stateLiveData.value = oldState!!
     }
 
+    fun clearState() {
+        val oldState = stateLiveData.value
+        oldState?.wallpapers?.clear()
+        stateLiveData.value = State(ArrayList(), 0)
+    }
+
     data class State(
-        var popularWallpapers: ArrayList<WallpaperModel>,
+        var wallpapers: ArrayList<WallpaperModel>,
         var currentStartNewWallpapers: Int
     )
-
-    companion object {
-        const val PARAM = "popular"
-    }
 }

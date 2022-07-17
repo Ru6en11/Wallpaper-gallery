@@ -17,7 +17,7 @@ class RandomFragmentViewModel : ViewModel() {
         getRandomWallpaper()
     }
 
-    fun getRandomWallpaper() {
+    fun getRandomWallpaper(category: String = "") {
         val wallpapers = WallpaperModel().getWallpaper()
         val oldState = stateLiveData.value
         val oldCurrent = oldState?.randomWallpapers?.size

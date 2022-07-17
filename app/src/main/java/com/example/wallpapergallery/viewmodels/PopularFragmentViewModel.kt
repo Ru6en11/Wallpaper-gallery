@@ -17,11 +17,17 @@ class PopularFragmentViewModel : ViewModel() {
     }
 
     fun getPopularWallpaper() {
-        val param: String = "popular"
-        stateLiveData.value?.popularWallpapers = WallpaperModel().getWallpaper(param)
+        val wallpapers = WallpaperModel().getWallpaper(PARAM)
+        for (wall in wallpapers) {
+            stateLiveData.value?.popularWallpapers?.add(wall)
+        }
     }
 
     data class State(
         var popularWallpapers: ArrayList<WallpaperModel>
     )
+
+    companion object {
+        const val PARAM = "popular"
+    }
 }

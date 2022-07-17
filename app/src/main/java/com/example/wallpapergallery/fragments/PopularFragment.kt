@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.wallpapergallery.adapters.RecyclerViewWallpaperAdapter
 import com.example.wallpapergallery.databinding.FragmentPopularBinding
+import com.example.wallpapergallery.listeners.RecyclerViewOnScrollListener
 import com.example.wallpapergallery.models.WallpaperModel
 import com.example.wallpapergallery.viewmodels.PopularFragmentViewModel
 import com.example.wallpapergallery.viewmodels.RandomFragmentViewModel
@@ -44,16 +45,20 @@ class PopularFragment : Fragment() {
     }
 
     private fun renderState(state: PopularFragmentViewModel.State) {
-        for (wall in state.popularWallpapers) {
-            adapter.addWallpaper(wall)
+
+        for (i in state.currentStartNewWallpapers until state.popularWallpapers.size) {
+            adapter.addWallpaper(state.popularWallpapers[i])
         }
     }
 
 
     private fun initRecyclerView() = with(binding) {
-        popularRecyclerView.layoutManager = GridLayoutManager(activity as AppCompatActivity, 2)
+        val layoutManager = GridLayoutManager(activity as AppCompatActivity, 2)
+        popularRecyclerView.layoutManager = layoutManager
         popularRecyclerView.adapter = adapter
 
+        //infinityScroll
+        popularRecyclerView.addOnScrollListener(RecyclerViewOnScrollListener(layoutManager, model::getPopularWallpaper))
     }
 
     companion object {

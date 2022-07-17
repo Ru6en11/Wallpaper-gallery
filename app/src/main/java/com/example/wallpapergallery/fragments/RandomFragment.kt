@@ -47,12 +47,10 @@ class RandomFragment : Fragment() {
     }
 
     private fun renderState(state: RandomFragmentViewModel.State) {
+
         for (i in state.currentStartNewWallpapers until state.randomWallpapers.size) {
             adapter.addWallpaper(state.randomWallpapers[i])
         }
-//        for (wall in state.randomWallpapers) {
-//            adapter.addWallpaper(wall)
-//        }
     }
 
 
@@ -60,8 +58,8 @@ class RandomFragment : Fragment() {
         val layoutManager = GridLayoutManager(activity as AppCompatActivity, 2)
         randomRecyclerView.layoutManager = layoutManager
         randomRecyclerView.adapter = adapter
-//        initScrollListener(layoutManager, model::getRandomWallpaper)
 
+        //infinityScroll
         randomRecyclerView.addOnScrollListener(RecyclerViewOnScrollListener(layoutManager, model::getRandomWallpaper))
     }
 

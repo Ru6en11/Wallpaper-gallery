@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.wallpapergallery.adapters.RecyclerViewWallpaperAdapter
 import com.example.wallpapergallery.databinding.FragmentRandomBinding
-import com.example.wallpapergallery.models.Wallpaper
+import com.example.wallpapergallery.viewmodels.RandomFragmentViewModel
 
 
 class RandomFragment : Fragment() {
@@ -18,6 +18,7 @@ class RandomFragment : Fragment() {
     private lateinit var binding: FragmentRandomBinding
 
     private val adapter = RecyclerViewWallpaperAdapter()
+    private val model: RandomFragmentViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,23 +31,32 @@ class RandomFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
+
+        if (model.state.value == null) {
+            model.initState()
+        }
+
+        model.state.observe(viewLifecycleOwner) {
+            renderState(it)
+        }
+
+    }
+
+    private fun renderState(state: RandomFragmentViewModel.State) {
+        for (i in state.randomWallpapers.indices) {
+            adapter.addWallpaper(state.randomWallpapers[i])
+        }
     }
 
 
     private fun initRecyclerView() = with(binding) {
         randomRecyclerView.layoutManager =GridLayoutManager(activity as AppCompatActivity, 2)
         randomRecyclerView.adapter = adapter
-
-        for (i in 1..10) {
-            val src = "https://source.unsplash.com/random/1080x1920 ${kotlin.random.Random.nextInt(-10000, 1000)}"
-            val wallpaper = Wallpaper(src)
-            adapter.addWallpaper(wallpaper)
-        }
     }
 
     companion object {
 
-        @JvmStatic
-        fun newInstance() = RandomFragment()
+        @JvmStatic fun newInstance() = RandomFragment()
+        @JvmStatic private val KEY_STATE = "STATE"
     }
 }

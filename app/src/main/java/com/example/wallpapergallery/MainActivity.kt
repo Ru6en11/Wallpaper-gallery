@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        deleteCache(this)
+//        deleteCache(this)
     }
 
     private fun deleteCache(context: Context) {

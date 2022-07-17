@@ -41,7 +41,7 @@ class CategoryFragment : Fragment() {
         val categoryTitlesList: Array<String> = resources.getStringArray(R.array.categoryTitles)
 
         for (i in categoryTitlesList) {
-            val src = "https://source.unsplash.com/random/1080x1920? ${kotlin.random.Random.nextInt(-1000, 1000)} $i"
+            val src = "https://source.unsplash.com/random/1080x1920?$i ${kotlin.random.Random.nextInt(-1000, 1000)} "
             val category = Category(src, i)
             adapter.addWallpaper(category)
         }

@@ -43,8 +43,8 @@ class RandomFragment : Fragment() {
     }
 
     private fun renderState(state: RandomFragmentViewModel.State) {
-        for (i in state.randomWallpapers.indices) {
-            adapter.addWallpaper(state.randomWallpapers[i])
+        for (wall in state.randomWallpapers) {
+            adapter.addWallpaper(wall)
         }
     }
 
@@ -57,6 +57,6 @@ class RandomFragment : Fragment() {
     companion object {
 
         @JvmStatic fun newInstance() = RandomFragment()
-        @JvmStatic private val KEY_STATE = "STATE"
+
     }
 }

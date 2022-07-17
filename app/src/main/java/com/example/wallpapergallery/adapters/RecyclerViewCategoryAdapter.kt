@@ -27,7 +27,7 @@ class RecyclerViewCategoryAdapter : RecyclerView.Adapter<RecyclerViewCategoryAda
                 .centerCrop()
                 .into(categoryImageView)
 
-            categoryTextView.text = category.tittle
+            categoryTextView.text = category.title
 
         }
     }

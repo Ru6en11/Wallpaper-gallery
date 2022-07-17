@@ -81,6 +81,20 @@ class MainFragment : Fragment() {
 
         searchView.setSearchableInfo(manager.getSearchableInfo(activity?.componentName))
 
+        menu.findItem(R.id.search).setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
+            override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
+                binding.searchHolder.visibility = View.VISIBLE
+                return true
+            }
+
+            override fun onMenuItemActionCollapse(p0: MenuItem?): Boolean {
+                binding.searchHolder.visibility = View.GONE
+                return true
+            }
+
+        })
+
+
         //Слушатель для searchView
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {

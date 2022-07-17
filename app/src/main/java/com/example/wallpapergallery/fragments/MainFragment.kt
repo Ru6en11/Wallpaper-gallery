@@ -7,6 +7,7 @@ import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.activityViewModels
@@ -57,6 +58,7 @@ class MainFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         //fixme
         setHasOptionsMenu(true)
     }
@@ -64,8 +66,19 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //Задаем адаптер для ViewPager2
+        if (model.searchState.value == null) {
+            model.initSearchState(
+                MainFragmentViewModel.SearchState(
+                    visible = false,
+                    query = ""
+            ))
+        }
 
+        model.searchState.observe(viewLifecycleOwner) {
+            searchHolder.visibility = if (it.visible) View.VISIBLE else View.GONE
+        }
+
+        //Задаем адаптер для ViewPager2
         val adapter = ViewPagerAdapter(activity as AppCompatActivity, fragmentsList)
         binding.viewPager2.adapter = adapter
 
@@ -91,6 +104,17 @@ class MainFragment : Fragment() {
 
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        println("SAVE ${model.searchState.value?.visible}")
+        outState.putParcelable(KEY_SEARCH_STATE, model.searchState.value)
+    }
+
+    private fun renderSearchState(searchState: MainFragmentViewModel.SearchState) = with(binding){
+
+        searchHolder.visibility = if (searchState.visible) View.VISIBLE else View.GONE
+    }
+
     //Подключаем toolbar_menu к toolbar
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.toolbar_menu, menu)
@@ -102,10 +126,18 @@ class MainFragment : Fragment() {
 
         searchView.setSearchableInfo(manager.getSearchableInfo(activity?.componentName))
 
-        menu.findItem(R.id.search).setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
+        val menuSearchItem = menu.findItem(R.id.search)
+
+        if (model.searchState.value?.visible!!) {
+            menuSearchItem.expandActionView()
+            searchView.setQuery(model.searchState.value?.query, false)
+        }
+
+       menuSearchItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
 
                 binding.searchHolder.visibility = View.VISIBLE
+                model.switchIsSearchVisible(true)
                 return true
             }
 
@@ -113,6 +145,7 @@ class MainFragment : Fragment() {
                 model.clearState()
                 adapter.clearAdapter()
                 binding.searchHolder.visibility = View.GONE
+                model.switchIsSearchVisible(false)
                 return true
             }
 
@@ -127,8 +160,8 @@ class MainFragment : Fragment() {
 
                 adapter.clearAdapter()
                 model.clearState()
-
                 model.searchWallpaper(query!!)
+                model.setSearchQueryParams(query)
                 searchRecyclerView.addOnScrollListener(RecyclerViewOnScrollListener(layoutManager,
                     model::searchWallpaper, query))
                 return false
@@ -192,7 +225,6 @@ class MainFragment : Fragment() {
         searchRecyclerView.adapter = adapter
 
 
-
     }
 
     private fun renderState(state: MainFragmentViewModel.State) {
@@ -204,7 +236,7 @@ class MainFragment : Fragment() {
 
 
     companion object {
-        @JvmStatic
-        fun newInstance() = MainFragment()
+        @JvmStatic fun newInstance() = MainFragment()
+        @JvmStatic private val KEY_SEARCH_STATE = "KEY_SEARCH_STATE"
     }
 }

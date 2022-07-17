@@ -6,16 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.wallpapergallery.adapters.RecyclerViewWallpaperAdapter
 import com.example.wallpapergallery.databinding.FragmentPopularBinding
 import com.example.wallpapergallery.models.WallpaperModel
+import com.example.wallpapergallery.viewmodels.PopularFragmentViewModel
+import com.example.wallpapergallery.viewmodels.RandomFragmentViewModel
 
 
 class PopularFragment : Fragment() {
 
     private lateinit var binding: FragmentPopularBinding
     private val adapter = RecyclerViewWallpaperAdapter()
+    private val model: PopularFragmentViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +32,21 @@ class PopularFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
+
+        if (model.state.value == null) {
+            model.initState()
+        }
+
+        model.state.observe(viewLifecycleOwner) {
+            renderState(it)
+        }
+
+    }
+
+    private fun renderState(state: PopularFragmentViewModel.State) {
+        for (wall in state.popularWallpapers) {
+            adapter.addWallpaper(wall)
+        }
     }
 
 
@@ -35,11 +54,6 @@ class PopularFragment : Fragment() {
         popularRecyclerView.layoutManager = GridLayoutManager(activity as AppCompatActivity, 2)
         popularRecyclerView.adapter = adapter
 
-        for (i in 1..10) {
-            val src = "https://source.unsplash.com/random/1080x1920?popular ${kotlin.random.Random.nextInt(-10000, 1000)}"
-            val wallpaper = WallpaperModel(src)
-            adapter.addWallpaper(wallpaper)
-        }
     }
 
     companion object {

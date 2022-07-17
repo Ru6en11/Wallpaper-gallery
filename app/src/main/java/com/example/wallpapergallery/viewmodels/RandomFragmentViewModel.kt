@@ -7,23 +7,29 @@ import com.example.wallpapergallery.models.WallpaperModel
 
 class RandomFragmentViewModel : ViewModel() {
 
+
     val state: LiveData<State> get() = stateLiveData
     private val stateLiveData = MutableLiveData<State>()
 
     fun initState() {
-        val state = State(ArrayList())
+        val state = State(ArrayList(), 0)
         stateLiveData.value = state
         getRandomWallpaper()
     }
 
     fun getRandomWallpaper() {
         val wallpapers = WallpaperModel().getWallpaper()
+        val oldState = stateLiveData.value
+        val oldCurrent = oldState?.randomWallpapers?.size
         for (wall in wallpapers) {
-            stateLiveData.value?.randomWallpapers?.add(wall)
+            oldState?.randomWallpapers?.add(wall)
         }
+        oldState?.currentStartNewWallpapers = oldCurrent!!
+        stateLiveData.value = oldState!!
     }
 
     data class State(
-        var randomWallpapers: ArrayList<WallpaperModel>
+        var randomWallpapers: ArrayList<WallpaperModel>,
+        var currentStartNewWallpapers: Int
     )
 }

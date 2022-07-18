@@ -18,13 +18,14 @@ import androidx.recyclerview.widget.GridLayoutManager
 
 import com.example.wallpapergallery.adapters.RecyclerViewSearchAdapter
 import com.example.wallpapergallery.adapters.ViewPagerAdapter
+import com.example.wallpapergallery.databinding.ActivityMainBinding
 
-import com.example.wallpapergallery.databinding.FragmentMainBinding
+
 import com.example.wallpapergallery.fragments.*
 import com.example.wallpapergallery.listeners.RecyclerViewOnScrollListener
 import com.example.wallpapergallery.viewmodels.MainFragmentViewModel
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.fragment_main.*
+
 import java.io.File
 import java.lang.Exception
 
@@ -32,7 +33,7 @@ import java.lang.Exception
 class MainActivity : AppCompatActivity() {
 
 
-    private lateinit var binding: FragmentMainBinding
+    private lateinit var binding: ActivityMainBinding
     private lateinit var model: MainFragmentViewModel
     private val adapter = RecyclerViewSearchAdapter()
     private lateinit var layoutManager: GridLayoutManager
@@ -57,17 +58,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = FragmentMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
+        binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
 
         model = ViewModelProvider(this).get(MainFragmentViewModel::class.java)
 
         mainToolbarLayout = binding.mainToolbarLayout
-
-//        supportFragmentManager.beginTransaction()
-//            .replace(R.id.holder, MainFragment.newInstance()).commit()
-
-//        //fixme
-//        setHasOptionsMenu(true)
 
         initToolbar()
         initSidebarItemSelectedListener()
@@ -162,7 +157,7 @@ class MainActivity : AppCompatActivity() {
                 model.clearState()
                 model.searchWallpaper(query!!)
                 model.setSearchQueryParams(query)
-                searchRecyclerView.addOnScrollListener(
+                binding.searchRecyclerView.addOnScrollListener(
                     RecyclerViewOnScrollListener(layoutManager,
                     model::searchWallpaper, query, binding.mainToolbarLayout)
                 )

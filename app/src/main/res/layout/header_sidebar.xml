@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:background="@color/navigationLightTheme"
-    android:paddingStart="10dp">
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp">
     
     <ImageView
         android:layout_width="100dp"
@@ -27,13 +28,13 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/logoImageView"
-        app:layout_constraintBottom_toTopOf="@id/headerTextView"/>
+        app:layout_constraintBottom_toTopOf="@id/headerTagline"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/headerTextView"
-        android:text="@string/header_text"
+        android:id="@+id/headerTagline"
+        android:text="@string/tagline_text"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/authorTextView"

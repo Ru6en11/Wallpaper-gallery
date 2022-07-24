@@ -14,7 +14,6 @@ import com.example.wallpapergallery.MainActivity
 import com.example.wallpapergallery.R
 import com.example.wallpapergallery.adapters.RecyclerViewCategoryAdapter
 import com.example.wallpapergallery.databinding.FragmentCategoryBinding
-import com.example.wallpapergallery.listeners.RecyclerViewOnScrollListener
 import com.example.wallpapergallery.viewmodels.CategoryFragmentViewModel
 
 

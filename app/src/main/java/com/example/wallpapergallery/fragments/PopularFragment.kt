@@ -14,7 +14,7 @@ import com.example.wallpapergallery.MainActivity
 import com.example.wallpapergallery.adapters.RecyclerViewWallpaperAdapter
 import com.example.wallpapergallery.databinding.FragmentPopularBinding
 import com.example.wallpapergallery.listeners.RecyclerViewOnItemClickListener
-import com.example.wallpapergallery.listeners.RecyclerViewOnScrollListener
+import com.example.wallpapergallery.listeners.RecyclerViewWallpaperOnScrollListener
 import com.example.wallpapergallery.models.WallpaperModel
 import com.example.wallpapergallery.viewmodels.PopularFragmentViewModel
 
@@ -65,7 +65,7 @@ class PopularFragment : Fragment(), RecyclerViewOnItemClickListener {
         popularRecyclerView.adapter = adapter
 
         //infinityScroll
-        popularRecyclerView.addOnScrollListener(RecyclerViewOnScrollListener(layoutManager, model::getPopularWallpaper, view = ma))
+        popularRecyclerView.addOnScrollListener(RecyclerViewWallpaperOnScrollListener(layoutManager, model::getPopularWallpaper, view = ma))
     }
 
     override fun onClickRecyclerViewItem(wallpaper: WallpaperModel) {

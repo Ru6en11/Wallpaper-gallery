@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.wallpapergallery.viewmodels.MainFragmentViewModel
 import kotlin.properties.Delegates
 
-class RecyclerViewOnScrollListener(
+class RecyclerViewWallpaperOnScrollListener(
     private val manager: GridLayoutManager,
     val fetchData: (category: String) -> Unit,
     val category: String = "",

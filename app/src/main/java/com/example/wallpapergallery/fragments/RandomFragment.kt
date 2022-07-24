@@ -6,21 +6,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.wallpapergallery.MainActivity
 import com.example.wallpapergallery.adapters.RecyclerViewWallpaperAdapter
 import com.example.wallpapergallery.databinding.FragmentRandomBinding
+import com.example.wallpapergallery.listeners.RecyclerViewOnItemClickListener
 import com.example.wallpapergallery.listeners.RecyclerViewOnScrollListener
+import com.example.wallpapergallery.models.WallpaperModel
 import com.example.wallpapergallery.viewmodels.RandomFragmentViewModel
 
 
-class RandomFragment : Fragment() {
+class RandomFragment : Fragment(), RecyclerViewOnItemClickListener {
 
     private lateinit var binding: FragmentRandomBinding
     private lateinit var ma: RelativeLayout
-    private val adapter = RecyclerViewWallpaperAdapter()
+    private val adapter = RecyclerViewWallpaperAdapter(this)
     private val model: RandomFragmentViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -66,9 +69,12 @@ class RandomFragment : Fragment() {
         randomRecyclerView.addOnScrollListener(RecyclerViewOnScrollListener(layoutManager, model::getRandomWallpaper, view = ma))
     }
 
+    override fun onClickRecyclerViewItem(wallpaper: WallpaperModel) {
+        Toast.makeText(activity as AppCompatActivity, "Click", Toast.LENGTH_SHORT).show()
+    }
+
     companion object {
 
         @JvmStatic fun newInstance() = RandomFragment()
-
     }
 }

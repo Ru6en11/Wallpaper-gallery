@@ -8,15 +8,16 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.wallpapergallery.R
 import com.example.wallpapergallery.databinding.WallpaperItemBinding
+import com.example.wallpapergallery.listeners.RecyclerViewOnItemClickListener
 import com.example.wallpapergallery.models.WallpaperModel
 
-class RecyclerViewWallpaperAdapter : RecyclerView.Adapter<RecyclerViewWallpaperAdapter.WallpaperHolder>() {
+class RecyclerViewWallpaperAdapter(val clickListener: RecyclerViewOnItemClickListener) : RecyclerView.Adapter<RecyclerViewWallpaperAdapter.WallpaperHolder>() {
 
     private val wallpapersList = ArrayList<WallpaperModel>()
 
     class WallpaperHolder(item: View) : RecyclerView.ViewHolder(item) {
         private val binding = WallpaperItemBinding.bind(item)
-        fun bind(wallpaper: WallpaperModel) = with(binding) {
+        fun bind(wallpaper: WallpaperModel, clickListener: RecyclerViewOnItemClickListener) = with(binding) {
 
             Glide.with(wallpaperItem)
                 .load(wallpaper.wallpaperResource)
@@ -24,6 +25,9 @@ class RecyclerViewWallpaperAdapter : RecyclerView.Adapter<RecyclerViewWallpaperA
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .centerCrop()
                 .into(wallpaperItem)
+
+            itemCardView.setOnClickListener { clickListener.onClickRecyclerViewItem(wallpaper) }
+
         }
     }
 
@@ -33,7 +37,7 @@ class RecyclerViewWallpaperAdapter : RecyclerView.Adapter<RecyclerViewWallpaperA
     }
 
     override fun onBindViewHolder(holder: RecyclerViewWallpaperAdapter.WallpaperHolder, position: Int) {
-        holder.bind(wallpapersList[position])
+        holder.bind(wallpapersList[position], clickListener)
     }
 
     override fun getItemCount(): Int {

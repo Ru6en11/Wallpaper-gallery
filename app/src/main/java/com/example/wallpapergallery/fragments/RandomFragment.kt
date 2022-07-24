@@ -14,7 +14,7 @@ import com.example.wallpapergallery.MainActivity
 import com.example.wallpapergallery.adapters.RecyclerViewWallpaperAdapter
 import com.example.wallpapergallery.databinding.FragmentRandomBinding
 import com.example.wallpapergallery.listeners.RecyclerViewOnItemClickListener
-import com.example.wallpapergallery.listeners.RecyclerViewWallpaperOnScrollListener
+import com.example.wallpapergallery.listeners.RecyclerViewOnScrollListener
 import com.example.wallpapergallery.models.WallpaperModel
 import com.example.wallpapergallery.viewmodels.RandomFragmentViewModel
 
@@ -66,7 +66,7 @@ class RandomFragment : Fragment(), RecyclerViewOnItemClickListener {
 
 
         //infinityScroll
-        randomRecyclerView.addOnScrollListener(RecyclerViewWallpaperOnScrollListener(layoutManager, model::getRandomWallpaper, view = ma))
+        randomRecyclerView.addOnScrollListener(RecyclerViewOnScrollListener(layoutManager, model::getRandomWallpaper, view = ma))
     }
 
     override fun onClickRecyclerViewItem(wallpaper: WallpaperModel) {

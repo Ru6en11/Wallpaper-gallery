@@ -22,7 +22,7 @@ import com.example.wallpapergallery.databinding.ActivityMainBinding
 
 
 import com.example.wallpapergallery.fragments.*
-import com.example.wallpapergallery.listeners.RecyclerViewWallpaperOnScrollListener
+import com.example.wallpapergallery.listeners.RecyclerViewOnScrollListener
 import com.example.wallpapergallery.viewmodels.MainFragmentViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -158,7 +158,7 @@ class MainActivity : AppCompatActivity() {
                 model.searchWallpaper(query!!)
                 model.setSearchQueryParams(query)
                 binding.searchRecyclerView.addOnScrollListener(
-                    RecyclerViewWallpaperOnScrollListener(layoutManager,
+                    RecyclerViewOnScrollListener(layoutManager,
                     model::searchWallpaper, query, binding.mainToolbarLayout)
                 )
                 return false

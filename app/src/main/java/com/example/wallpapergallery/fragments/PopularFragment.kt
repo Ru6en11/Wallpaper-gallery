@@ -13,13 +13,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.wallpapergallery.MainActivity
 import com.example.wallpapergallery.adapters.RecyclerViewWallpaperAdapter
 import com.example.wallpapergallery.databinding.FragmentPopularBinding
-import com.example.wallpapergallery.listeners.RecyclerViewOnItemClickListener
+import com.example.wallpapergallery.listeners.RecyclerViewWallpaperOnItemClickListener
 import com.example.wallpapergallery.listeners.RecyclerViewOnScrollListener
 import com.example.wallpapergallery.models.WallpaperModel
 import com.example.wallpapergallery.viewmodels.PopularFragmentViewModel
 
 
-class PopularFragment : Fragment(), RecyclerViewOnItemClickListener {
+class PopularFragment : Fragment(), RecyclerViewWallpaperOnItemClickListener {
 
     private lateinit var binding: FragmentPopularBinding
     private lateinit var ma: RelativeLayout

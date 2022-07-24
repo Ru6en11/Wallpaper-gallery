@@ -8,16 +8,16 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.wallpapergallery.R
 import com.example.wallpapergallery.databinding.WallpaperItemBinding
-import com.example.wallpapergallery.listeners.RecyclerViewOnItemClickListener
+import com.example.wallpapergallery.listeners.RecyclerViewWallpaperOnItemClickListener
 import com.example.wallpapergallery.models.WallpaperModel
 
-class RecyclerViewWallpaperAdapter(val clickListener: RecyclerViewOnItemClickListener) : RecyclerView.Adapter<RecyclerViewWallpaperAdapter.WallpaperHolder>() {
+class RecyclerViewWallpaperAdapter(val clickListener: RecyclerViewWallpaperOnItemClickListener) : RecyclerView.Adapter<RecyclerViewWallpaperAdapter.WallpaperHolder>() {
 
     private val wallpapersList = ArrayList<WallpaperModel>()
 
     class WallpaperHolder(item: View) : RecyclerView.ViewHolder(item) {
         private val binding = WallpaperItemBinding.bind(item)
-        fun bind(wallpaper: WallpaperModel, clickListener: RecyclerViewOnItemClickListener) = with(binding) {
+        fun bind(wallpaper: WallpaperModel, clickListener: RecyclerViewWallpaperOnItemClickListener) = with(binding) {
 
             Glide.with(wallpaperItem)
                 .load(wallpaper.wallpaperResource)

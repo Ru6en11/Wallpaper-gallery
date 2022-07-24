@@ -2,7 +2,7 @@ package com.example.wallpapergallery.listeners
 
 import com.example.wallpapergallery.models.WallpaperModel
 
-interface RecyclerViewOnItemClickListener {
+interface RecyclerViewWallpaperOnItemClickListener {
 
     fun onClickRecyclerViewItem(wallpaper: WallpaperModel)
 }

@@ -13,13 +13,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.wallpapergallery.MainActivity
 import com.example.wallpapergallery.adapters.RecyclerViewWallpaperAdapter
 import com.example.wallpapergallery.databinding.FragmentRandomBinding
-import com.example.wallpapergallery.listeners.RecyclerViewOnItemClickListener
+import com.example.wallpapergallery.listeners.RecyclerViewWallpaperOnItemClickListener
 import com.example.wallpapergallery.listeners.RecyclerViewOnScrollListener
 import com.example.wallpapergallery.models.WallpaperModel
 import com.example.wallpapergallery.viewmodels.RandomFragmentViewModel
 
 
-class RandomFragment : Fragment(), RecyclerViewOnItemClickListener {
+class RandomFragment : Fragment(), RecyclerViewWallpaperOnItemClickListener {
 
     private lateinit var binding: FragmentRandomBinding
     private lateinit var ma: RelativeLayout

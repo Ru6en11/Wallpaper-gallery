@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,14 +15,18 @@ import com.example.wallpapergallery.MainActivity
 import com.example.wallpapergallery.R
 import com.example.wallpapergallery.adapters.RecyclerViewCategoryAdapter
 import com.example.wallpapergallery.databinding.FragmentCategoryBinding
+import com.example.wallpapergallery.listeners.RecyclerViewCategoryOnItemClickListener
+import com.example.wallpapergallery.listeners.RecyclerViewWallpaperOnItemClickListener
+import com.example.wallpapergallery.models.CategoryModel
+import com.example.wallpapergallery.models.WallpaperModel
 import com.example.wallpapergallery.viewmodels.CategoryFragmentViewModel
 
 
-class CategoryFragment : Fragment() {
+class CategoryFragment : Fragment(), RecyclerViewCategoryOnItemClickListener{
 
     private lateinit var binding: FragmentCategoryBinding
     private lateinit var ma: RelativeLayout
-    private val adapter = RecyclerViewCategoryAdapter()
+    private val adapter = RecyclerViewCategoryAdapter(this)
     private val model: CategoryFragmentViewModel by activityViewModels()
 
 
@@ -81,8 +86,12 @@ class CategoryFragment : Fragment() {
         }
     }
 
-    companion object {
+    override fun onClickRecyclerViewItem(category: CategoryModel) {
+        Toast.makeText(activity as AppCompatActivity, "Click on category", Toast.LENGTH_SHORT).show()
+    }
 
+
+    companion object {
         @JvmStatic
         fun newInstance() = CategoryFragment()
     }

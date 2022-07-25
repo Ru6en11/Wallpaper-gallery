@@ -7,6 +7,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/itemCategory"
         app:cardCornerRadius="20dp"
         app:cardElevation="10dp"
         android:layout_marginTop="20dp"
